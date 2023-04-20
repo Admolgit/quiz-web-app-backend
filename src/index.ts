@@ -6,10 +6,13 @@ import dotenv from "dotenv";
 import configDb from "./config/db"
 import questionRouter from "./routes/question.routes";
 
+// Env file
 dotenv.config()
 
+// Calling the mongodb database
 configDb()
 
+// Storing and calling the express framework
 const app = express();
 
 app.use(cors());

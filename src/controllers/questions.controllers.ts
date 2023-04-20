@@ -1,6 +1,7 @@
 import { Response, Request } from "express";
 import Question from "../models/questionsModel.models";
 
+// Create question controller
 export const createQuestion = async (req: Request, res: Response) => {
   try {
     const {question, choice1, choice2, choice3, choice4, answer} = req.body;
@@ -9,6 +10,7 @@ export const createQuestion = async (req: Request, res: Response) => {
       throw new Error("All fields are required");
     }
 
+    // Create new user object and save to database
     const questionSaved = await Question.create({
       question: question,
       choice1: choice1,
@@ -31,6 +33,7 @@ export const createQuestion = async (req: Request, res: Response) => {
   }
 }
 
+// Get all questions from the database
 export const getQuestion = async (req: Request, res: Response) => {
   try {
     const questions = await Question.find({});
