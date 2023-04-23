@@ -14,12 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getQuestion = exports.createQuestion = void 0;
 const questionsModel_models_1 = __importDefault(require("../models/questionsModel.models"));
+// Create question controller
 const createQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { question, choice1, choice2, choice3, choice4, answer } = req.body;
         if (!question || !choice1 || !choice2 || !choice3 || !choice4 || !answer) {
             throw new Error("All fields are required");
         }
+        // Create new user object and save to database
         const questionSaved = yield questionsModel_models_1.default.create({
             question: question,
             choice1: choice1,
@@ -41,6 +43,7 @@ const createQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.createQuestion = createQuestion;
+// Get all questions from the database
 const getQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const questions = yield questionsModel_models_1.default.find({});
