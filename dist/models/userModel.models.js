@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const { ObjectId } = mongoose_1.default.Schema.Types;
 const userSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
@@ -33,14 +34,13 @@ const userSchema = new mongoose_1.default.Schema({
         required: true,
         default: false,
     },
+    score: {
+        type: ObjectId,
+        ref: 'highScores',
+    }
 }, {
     timestamps: true,
 });
-userSchema.methods.matchPassword = function (enteredPassword) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return yield bcryptjs_1.default.compare(enteredPassword, this.password);
-    });
-};
 userSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!this.isModified("password")) {
@@ -50,5 +50,10 @@ userSchema.pre("save", function (next) {
         this.password = yield bcryptjs_1.default.hash(this.password, salt);
     });
 });
+userSchema.methods.matchPassword = function (enteredPassword) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield bcryptjs_1.default.compare(enteredPassword, this.password);
+    });
+};
 const User = mongoose_1.default.model("User", userSchema);
 exports.default = User;
