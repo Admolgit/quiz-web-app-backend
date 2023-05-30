@@ -14,7 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
       email: email,
       password: password,
       isAdmin: isAdmin,
-    });
+    })
 
     return res.status(201).json({
       message: "User created successfully",
@@ -32,7 +32,7 @@ export const getUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const user = await User.find({ _id: id });
+    const user = await User.find({ _id: id }).populate('highScores')
 
     if (!user) {
       res.status(404).json({ message: "User not found" });

@@ -42,7 +42,7 @@ exports.createUser = createUser;
 const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const user = yield userModel_models_1.default.find({ _id: id });
+        const user = yield userModel_models_1.default.find({ _id: id }).populate('highScores');
         if (!user) {
             res.status(404).json({ message: "User not found" });
         }

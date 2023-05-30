@@ -2,9 +2,9 @@
   "name": "quiz-backend",
   "version": "1.0.0",
   "description": "Web quiz application backend",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "start": "nodemon ./dist/index.js",
+    "start": "node api.js && nodemon ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ademola Sodiq",
